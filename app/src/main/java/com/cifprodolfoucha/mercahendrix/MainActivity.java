@@ -22,7 +22,9 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     Button btn_subirImagen;
-
+    Button btn_subirPublicacion;
+    ImageView im;
+    Uri uri;
     BaseDatos_Aplicacion bd;
 
     //codigo de identificacion de la activity para recuperar imagen
@@ -34,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bd = new BaseDatos_Aplicacion(this);
-        bd.recuperarImagen();
 
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
+        btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
+        im = (ImageView) findViewById(R.id.im_Foto);
 
         btn_subirImagen.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -45,9 +48,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        btn_subirPublicacion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                crearPublicacion();
+            }
+        });
+
     }
 
-
+    public void crearPublicacion(){
+        bd.subirPublicacion(new Publicacion("c@gmail.com", "Javier Fernandez", "12€", uri));
+    }
 
 
     public void buscarArchivo() {
@@ -73,17 +86,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == IMAGEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             //recupero la imagen con su uri
-            Uri uri = null;
+
             Bitmap bitmap = null;
             if (resultData != null) {
                 uri = resultData.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("uri: "+uri);
-                bd.subirImagen(bitmap);
+                im.setImageURI(uri);
 
             }
         }
