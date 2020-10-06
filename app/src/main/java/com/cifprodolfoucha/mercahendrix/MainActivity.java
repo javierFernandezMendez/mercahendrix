@@ -23,6 +23,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     Button btn_subirImagen;
     Button btn_subirPublicacion;
+    Button btn_feed;
     ImageView im;
     Uri uri;
     BaseDatos_Aplicacion bd;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
+        btn_feed = (Button) findViewById(R.id.btn_feed);
         im = (ImageView) findViewById(R.id.im_Foto);
 
         btn_subirImagen.setOnClickListener(new View.OnClickListener(){
@@ -56,10 +58,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Intent activity_listaProductos = new Intent(this, Activity_ListaProductos.class);
+
+        btn_feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(activity_listaProductos);
+            }
+        });
     }
 
     public void crearPublicacion(){
-        bd.subirPublicacion(new Publicacion("c@gmail.com", "Javier Fernandez", "12€", uri));
+        bd.subirPublicacion(new Publicacion("j@gmail.com", "Javier Fernandez", "2€", uri.toString()));
     }
 
 
