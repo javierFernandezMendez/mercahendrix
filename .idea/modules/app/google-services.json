@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "468675593255",
+    "firebase_url": "https://mercahendrix-2aea4.firebaseio.com",
+    "project_id": "mercahendrix-2aea4",
+    "storage_bucket": "mercahendrix-2aea4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468675593255:android:4d6758faeefc4660e73a02",
+        "android_client_info": {
+          "package_name": "com.cifprodolfoucha.mercahendrix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468675593255-4ru2jcitmre7bn8r395peleftu5t1g4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cifprodolfoucha.mercahendrix",
+            "certificate_hash": "9959f03a9e7fbae686707d36e7bc749268b35ecc"
+          }
+        },
+        {
+          "client_id": "468675593255-gne4ko8vmk803c37ibsmppqp30ll1nju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgoutyxC7T1XtWEnnP0q4L_rz03Z-xyvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468675593255-gne4ko8vmk803c37ibsmppqp30ll1nju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
