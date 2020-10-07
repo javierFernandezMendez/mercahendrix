@@ -7,81 +7,16 @@
     android:background="?android:windowBackground"
     tools:context=".Activity_ListaProductos">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="700dp"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="409dp"
         android:layout_height="729dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="?android:windowBackground" />
-
-            <ImageView
-                android:id="@+id/im_cuadroImagen"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:src="@mipmap/ic_launcher" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="?android:windowBackground" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="288dp"
-                android:background="?android:windowBackground"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_nombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tv_precio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_weight="1" />
-
-                <View
-                    android:id="@+id/divider3"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:background="?android:windowBackground" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

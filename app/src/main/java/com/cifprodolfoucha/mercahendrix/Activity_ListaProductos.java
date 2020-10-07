@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.cifprodolfoucha.mercahendrix.almacenamiento.BaseDatos_Aplicacion;
 
 public class Activity_ListaProductos extends AppCompatActivity {
@@ -27,9 +28,9 @@ public class Activity_ListaProductos extends AppCompatActivity {
     }
 
     public void crearPublicacion(Publicacion p){
-        //im_cuadroImagen = (ImageView) findViewById(R.id.im_cuadroImagen);
-        ImageView imageView = new ImageView(this);
-        imageView.setImageURI(Uri.parse(p.getImagen()));
+        im_cuadroImagen = (ImageView) findViewById(R.id.imageView);
+
+        Glide.with(this).load(p.getImagen()).into(im_cuadroImagen);
     }
 
 }
