@@ -1,6 +1,7 @@
 package com.cifprodolfoucha.mercahendrix.almacenamiento;
 
 import android.app.Activity;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.util.Objects;
 public class BaseDatos_Aplicacion {
     Activity ac;
     Activity_PantallaPrincipal main = new Activity_PantallaPrincipal();
+    ImageView im;
 
     //realtime database
     //instancio la base de datos
@@ -45,6 +47,7 @@ public class BaseDatos_Aplicacion {
 
     public BaseDatos_Aplicacion(Activity _ac){
         this.ac = _ac;
+        im = (ImageView) ac.findViewById(R.id.im_Foto);
     }
 
     public void subirPublicacion(Publicacion p){
@@ -72,7 +75,7 @@ public class BaseDatos_Aplicacion {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
-                            Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).into(main.im);
+                            Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).into(im);
                     }
                 }
 

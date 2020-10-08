@@ -12,13 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
 import com.cifprodolfoucha.mercahendrix.almacenamiento.BaseDatos_Aplicacion;
 
 public class Activity_PantallaPrincipal extends AppCompatActivity {
     Button btn_subirImagen;
     Button btn_subirPublicacion;
     Button btn_feed;
-    public ImageView im;
 
     Uri uri;
     BaseDatos_Aplicacion bd;
@@ -40,7 +40,7 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
         btn_feed = (Button) findViewById(R.id.btn_feed);
-        im = (ImageView) findViewById(R.id.im_Foto);
+
         btn_subirImagen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
