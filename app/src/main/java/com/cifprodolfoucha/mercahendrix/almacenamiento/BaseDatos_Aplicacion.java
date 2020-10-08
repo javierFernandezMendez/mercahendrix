@@ -53,7 +53,7 @@ public class BaseDatos_Aplicacion {
         UploadTask procesoSubida = storageRef.child(email + "/" + key).putFile(Uri.parse(p.getImagen()));
         //guardo la url de la imagen
         //p.setImagen("gs://mercahendrix.appspot.com/"+email+"/"+key);
-        p.setImagen(storageRef.child(email).getDownloadUrl().toString());
+        p.setImagen(storageRef.child(email+"/"+key).getDownloadUrl().toString());
         //subo la publicacion a la base de datos
         bdRef.child("publicaciones/"+email+"/"+key).setValue(p);
 

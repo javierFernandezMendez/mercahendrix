@@ -5,26 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.cifprodolfoucha.mercahendrix.almacenamiento.BaseDatos_Aplicacion;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
-
-public class MainActivity extends AppCompatActivity {
+public class Activity_PantallaPrincipal extends AppCompatActivity {
     Button btn_subirImagen;
     Button btn_subirPublicacion;
     Button btn_feed;
     ImageView im;
+
     Uri uri;
     BaseDatos_Aplicacion bd;
 
@@ -34,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_pantalla_principal);
 
         bd = new BaseDatos_Aplicacion(this);
 
@@ -42,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
         btn_feed = (Button) findViewById(R.id.btn_feed);
         im = (ImageView) findViewById(R.id.im_Foto);
-
         btn_subirImagen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
