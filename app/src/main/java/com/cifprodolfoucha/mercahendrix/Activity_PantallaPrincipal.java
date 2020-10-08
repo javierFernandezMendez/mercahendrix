@@ -11,13 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.cifprodolfoucha.mercahendrix.almacenamiento.BaseDatos_Aplicacion;
 
 public class Activity_PantallaPrincipal extends AppCompatActivity {
     Button btn_subirImagen;
     Button btn_subirPublicacion;
     Button btn_feed;
-    ImageView im;
+    public ImageView im;
 
     Uri uri;
     BaseDatos_Aplicacion bd;
@@ -25,13 +26,17 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
     //codigo de identificacion de la activity para recuperar imagen
     private static final int IMAGEN_REQUEST_CODE = 1;
 
+    public Activity_PantallaPrincipal() {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_pantalla_principal);
 
         bd = new BaseDatos_Aplicacion(this);
-
+        bd.recuperarPublicacion();
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
         btn_feed = (Button) findViewById(R.id.btn_feed);
@@ -60,6 +65,8 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void crearPublicacion(){
         bd.subirPublicacion(new Publicacion("j@gmail.com", "Javier Fernandez", "2€", uri.toString()));
@@ -93,7 +100,7 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
             Bitmap bitmap = null;
             if (resultData != null) {
                 uri = resultData.getData();
-                im.setImageURI(uri);
+                //im.setImageURI(uri);
 
             }
         }

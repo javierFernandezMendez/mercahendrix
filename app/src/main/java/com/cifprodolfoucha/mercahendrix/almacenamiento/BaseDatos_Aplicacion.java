@@ -8,7 +8,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.cifprodolfoucha.mercahendrix.Activity_ListaProductos;
+import com.cifprodolfoucha.mercahendrix.Activity_PantallaPrincipal;
 import com.cifprodolfoucha.mercahendrix.Publicacion;
 import com.cifprodolfoucha.mercahendrix.R;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +29,7 @@ import java.util.Objects;
 
 public class BaseDatos_Aplicacion {
     Activity ac;
-    Activity_ListaProductos listaProductos1 = new Activity_ListaProductos();
+    Activity_PantallaPrincipal main = new Activity_PantallaPrincipal();
 
     //realtime database
     //instancio la base de datos
@@ -62,6 +64,7 @@ public class BaseDatos_Aplicacion {
 
     public void recuperarPublicacion(){
         Publicacion p;
+
         bdRef.child("publicaciones").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,7 +72,7 @@ public class BaseDatos_Aplicacion {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
-                        listaProductos1.crearPublicacion(snapshot2.getValue(Publicacion.class));
+                            Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).into(main.im);
                     }
                 }
 

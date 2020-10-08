@@ -19,16 +19,7 @@ public class Activity_ListaProductos extends AppCompatActivity {
 
         bd = new BaseDatos_Aplicacion(this);
         im_cuadroImagen = (ImageView) findViewById(R.id.imageView);
-        recuperarProductos();
-    }
 
-    public void recuperarProductos(){
-        bd.recuperarPublicacion();
-    }
-
-    public void crearPublicacion(Publicacion p){
-
-        Glide.with(this).load(p.getImagen()).into(im_cuadroImagen);
     }
 
 }
