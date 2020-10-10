@@ -1,20 +1,15 @@
 package com.cifprodolfoucha.mercahendrix.almacenamiento;
 
 import android.app.Activity;
-import android.media.Image;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.cifprodolfoucha.mercahendrix.Activity_ListaProductos;
 import com.cifprodolfoucha.mercahendrix.Activity_PantallaPrincipal;
 import com.cifprodolfoucha.mercahendrix.Publicacion;
 import com.cifprodolfoucha.mercahendrix.R;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class BaseDatos_Aplicacion {
     Activity ac;
@@ -43,7 +34,7 @@ public class BaseDatos_Aplicacion {
     //instacia storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
     //referencia a la raiz de mi almacenamiento
-    StorageReference storageRef = storage.getReference();
+    StorageReference storageRef = storage.getReference("/");
 
     public BaseDatos_Aplicacion(Activity _ac){
         this.ac = _ac;
@@ -51,11 +42,13 @@ public class BaseDatos_Aplicacion {
     }
 
     public void subirPublicacion(Publicacion p){
-
+        //
         String email = p.getEmail().replace(".","");
+        //creo y guardo una clave unica de publicacion
         String key = bdRef.child("publicaciones/" + email).push().getKey();
         //subo la imagen
         UploadTask procesoSubida = storageRef.child(email + "/" + key).putFile(Uri.parse(p.getImagen()));
+
         //guardo la url de la imagen
         //p.setImagen("gs://mercahendrix.appspot.com/"+email+"/"+key);
         p.setImagen(storageRef.child(email+"/"+key).getDownloadUrl().toString());
@@ -75,7 +68,8 @@ public class BaseDatos_Aplicacion {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
-                            Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).into(im);
+                        Activity_PantallaPrincipal.amosarMensaxeDebug("publicacion.imagen: " + snapshot2.getValue(Publicacion.class).getImagen());
+                        Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
                     }
                 }
 
