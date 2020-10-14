@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.cifprodolfoucha.mercahendrix.Activity_PantallaPrincipal;
 import com.cifprodolfoucha.mercahendrix.Publicacion;
 import com.cifprodolfoucha.mercahendrix.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,15 +43,22 @@ public class BaseDatos_Aplicacion {
     }
 
     public void subirPublicacion(Publicacion p){
-        //
+
+        //remplazo el . del email por nada para poder usarlo como ruta en mi base de datos
         String email = p.getEmail().replace(".","");
         //creo y guardo una clave unica de publicacion
         String key = bdRef.child("publicaciones/" + email).push().getKey();
         //subo la imagen
         UploadTask procesoSubida = storageRef.child(email + "/" + key).putFile(Uri.parse(p.getImagen()));
+        Activity_PantallaPrincipal.amosarMensaxeDebug("url imagen: " + storageRef.child("publicaciones/"+email+"/"+key).getDownloadUrl().toString());
 
-        //guardo la url de la imagen
         //p.setImagen("gs://mercahendrix.appspot.com/"+email+"/"+key);
+        storageRef.child(email+"/"+key).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Activity_PantallaPrincipal.amosarMensaxeDebug("uri: " + uri);
+            }
+        });
         p.setImagen(storageRef.child(email+"/"+key).getDownloadUrl().toString());
         //subo la publicacion a la base de datos
         bdRef.child("publicaciones/"+email+"/"+key).setValue(p);
@@ -60,7 +68,7 @@ public class BaseDatos_Aplicacion {
 
     public void recuperarPublicacion(){
         Publicacion p;
-
+        Glide.with(ac).load(storageRef.child("dora.jpg")).into(im);
         bdRef.child("publicaciones").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,7 +77,7 @@ public class BaseDatos_Aplicacion {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
                         Activity_PantallaPrincipal.amosarMensaxeDebug("publicacion.imagen: " + snapshot2.getValue(Publicacion.class).getImagen());
-                        Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
+                        //Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
                     }
                 }
 
