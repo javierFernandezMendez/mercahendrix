@@ -13,6 +13,7 @@ public class Publicacion {
     //private String currentDateTimeString;
 
     public Publicacion() {
+
     }
 
     public Publicacion(String email, String nombre, String precio, String imagen){
