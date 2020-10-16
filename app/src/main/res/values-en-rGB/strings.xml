@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">mercahendrix</string>
+    <string name="btn_subir">Upload image</string>
+    <string name="bnt_feed">Open feed</string>
+    <string name="btn_subir_publicacion">Upload post</string>
+</resources>

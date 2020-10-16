@@ -79,7 +79,7 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
 
     public void buscarArchivo() {
 
-        // ACTION_OPEN_DOCUMENT es el intent que abre el filebrowser.
+        // ACTION_OPEN_DOCUMENT es el intent que abre el explorador de archivos.
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 
         // Filtro que solo muestra archivos que se puedan abrir.

@@ -12,6 +12,7 @@ import com.cifprodolfoucha.mercahendrix.Activity_PantallaPrincipal;
 import com.cifprodolfoucha.mercahendrix.Publicacion;
 import com.cifprodolfoucha.mercahendrix.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,7 @@ public class BaseDatos_Aplicacion {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     //referencia a la raiz de mi almacenamiento
     StorageReference storageRef = storage.getReference("/");
+    StorageReference urlStorageRef = storage.getReferenceFromUrl("gs://mercahendrix.appspot.com");
 
     public BaseDatos_Aplicacion(Activity _ac){
         this.ac = _ac;
@@ -58,29 +60,30 @@ public class BaseDatos_Aplicacion {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> tarea) {
                 //si se termino la subida
-                if (tarea.isSuccessful())
-                {
-                    Activity_PantallaPrincipal.amosarMensaxeDebug("url imagen: " + tarea.getResult().getStorage().getDownloadUrl().toString());
-                    p.setImagen(tarea.getResult().getStorage().getDownloadUrl().toString());
-                    Toast.makeText(ac, "Imagen subida al almacenamiento.", Toast.LENGTH_SHORT).show();
-                    bdRef.child("publicaciones/"+email+"/"+key).setValue(p);
+                if (tarea.isSuccessful()){
+                    tarea.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            p.setImagen(uri.toString());
+                            Toast.makeText(ac, "Imagen subida al almacenamiento.", Toast.LENGTH_SHORT).show();
+                            Activity_PantallaPrincipal.amosarMensaxeDebug("url descarca: " + p.getImagen());
+                            bdRef.child("publicaciones/"+email+"/"+key).setValue(p);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ac, "Error al recuperar la URL de la imagen.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
                 else{
                     String message = tarea.getException().getMessage();
                     Toast.makeText(ac, "Un error ha ocurrido.", Toast.LENGTH_SHORT).show();
+                    Activity_PantallaPrincipal.amosarMensaxeDebug("error subida imagen: " + message);
                 }
-
-
             }
         });
-        //p.setImagen("gs://mercahendrix.appspot.com/"+email+"/"+key);
-
-        //p.setImagen(storageRef.child(email+"/"+key).getDownloadUrl().toString());
-        //subo la publicacion a la base de datos
-
-
-
-
     }
 
     public void recuperarPublicacion(){
