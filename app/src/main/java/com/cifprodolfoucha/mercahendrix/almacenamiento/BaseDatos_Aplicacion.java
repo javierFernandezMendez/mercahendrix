@@ -65,14 +65,23 @@ public class BaseDatos_Aplicacion {
                         @Override
                         public void onSuccess(Uri uri) {
                             p.setImagen(uri.toString());
-                            Toast.makeText(ac, "Imagen subida al almacenamiento.", Toast.LENGTH_SHORT).show();
                             Activity_PantallaPrincipal.amosarMensaxeDebug("url descarca: " + p.getImagen());
-                            bdRef.child("publicaciones/"+email+"/"+key).setValue(p);
+                            bdRef.child("publicaciones/"+email+"/"+key).setValue(p).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(ac, "Imagen subida al almacenamiento.", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ac, "Error subiendo la publicación.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ac, "Error al recuperar la URL de la imagen.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac, "Error al subir la imagen.", Toast.LENGTH_SHORT).show();
                         }
                     });
 
