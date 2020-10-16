@@ -105,7 +105,8 @@ public class BaseDatos_Aplicacion {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
                         Activity_PantallaPrincipal.amosarMensaxeDebug("publicacion.imagen: " + snapshot2.getValue(Publicacion.class).getImagen());
-                        Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
+                        //Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
+
                     }
                 }
 
