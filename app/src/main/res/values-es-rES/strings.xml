@@ -4,4 +4,5 @@
     <string name="btn_subir">Subir imagen</string>
     <string name="bnt_feed">Ir a la feed</string>
     <string name="btn_subir_publicacion">Subir publicación</string>
+    <string name="descripcion_imagen">Imagen</string>
 </resources>

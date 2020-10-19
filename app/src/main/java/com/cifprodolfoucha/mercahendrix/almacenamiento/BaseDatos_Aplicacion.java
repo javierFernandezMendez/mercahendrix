@@ -24,11 +24,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseDatos_Aplicacion {
     Activity ac;
-    Activity_PantallaPrincipal main = new Activity_PantallaPrincipal();
-    ImageView im;
-
+    static public List<Publicacion> pub = new ArrayList();
     //realtime database
     //instancio la base de datos
     private FirebaseDatabase bd = FirebaseDatabase.getInstance();
@@ -44,7 +46,6 @@ public class BaseDatos_Aplicacion {
 
     public BaseDatos_Aplicacion(Activity _ac){
         this.ac = _ac;
-        im = (ImageView) ac.findViewById(R.id.im_Foto);
     }
 
     public void subirPublicacion(final Publicacion p){
@@ -69,7 +70,7 @@ public class BaseDatos_Aplicacion {
                             bdRef.child("publicaciones/"+email+"/"+key).setValue(p).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(ac, "Imagen subida al almacenamiento.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ac, "Publicación subida.", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -81,14 +82,14 @@ public class BaseDatos_Aplicacion {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ac, "Error al subir la imagen.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac, "Error al recuperar la imagen almacenada.", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 }
                 else{
                     String message = tarea.getException().getMessage();
-                    Toast.makeText(ac, "Un error ha ocurrido.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ac, "Error al subir la imagen.", Toast.LENGTH_SHORT).show();
                     Activity_PantallaPrincipal.amosarMensaxeDebug("error subida imagen: " + message);
                 }
             }
@@ -96,17 +97,19 @@ public class BaseDatos_Aplicacion {
     }
 
     public void recuperarPublicacion(){
-        Publicacion p;
+
         bdRef.child("publicaciones").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pub.clear();
                 //recorro correos
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     //recorro publicaciones
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()){
-                        Activity_PantallaPrincipal.amosarMensaxeDebug("publicacion.imagen: " + snapshot2.getValue(Publicacion.class).getImagen());
+                        //Activity_PantallaPrincipal.amosarMensaxeDebug("publicacion.imagen: " + snapshot2.getValue(Publicacion.class).getImagen());
                         //Glide.with(ac).load(snapshot2.getValue(Publicacion.class).getImagen()).override(400, 400).into(im);
-
+                        pub.add(snapshot2.getValue(Publicacion.class));
+                        Activity_PantallaPrincipal.amosarMensaxeDebug("size pub dentro: " + pub.size());
                     }
                 }
 
@@ -114,9 +117,11 @@ public class BaseDatos_Aplicacion {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Activity_PantallaPrincipal.amosarMensaxeDebug("error recuperar publicaciones: " + error.getMessage());
+                Toast.makeText(ac, "Error al recuperar las publicaciones.", Toast.LENGTH_SHORT).show();
             }
         });
+        Activity_PantallaPrincipal.amosarMensaxeDebug("size pub: " + pub.size());
     }
 
 }

@@ -39,8 +39,6 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_pantalla_principal);
 
-        bd = new BaseDatos_Aplicacion(this);
-        bd.recuperarPublicacion();
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
         btn_feed = (Button) findViewById(R.id.btn_feed);
