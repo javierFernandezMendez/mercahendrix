@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.cifprodolfoucha.mercahendrix.almacenamiento.BaseDatos_Aplicacion;
 
@@ -19,7 +18,7 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
     Button btn_subirPublicacion;
     Button btn_feed;
 
-    Uri uri;
+    Uri imagen;
     BaseDatos_Aplicacion bd;
 
     //codigo de identificacion de la activity para recuperar imagen
@@ -38,6 +37,8 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_pantalla_principal);
+
+        bd = new BaseDatos_Aplicacion(this);
 
         btn_subirImagen = (Button) findViewById(R.id.btn_subirImagen);
         btn_subirPublicacion = (Button) findViewById(R.id.btn_SubirPublicacion);
@@ -71,7 +72,7 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
 
 
     public void crearPublicacion(){
-        bd.subirPublicacion(new Publicacion("j@gmail.com", "Javier Fernandez", "2€", uri.toString()));
+        bd.subirPublicacion(new Publicacion("j@gmail.com", "Christian", "10€", imagen.toString()));
     }
 
 
@@ -98,10 +99,8 @@ public class Activity_PantallaPrincipal extends AppCompatActivity {
         if (requestCode == IMAGEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             //recupero la imagen con su uri
-
-            Bitmap bitmap = null;
             if (resultData != null) {
-                uri = resultData.getData();
+                imagen = resultData.getData();
                 //im.setImageURI(uri);
 
             }
